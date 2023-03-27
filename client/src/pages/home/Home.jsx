@@ -1,5 +1,6 @@
 import React from "react";
 import { Hero } from "../../components/hero/Hero";
+import { Footer } from "../../components/footer/Footer";
 import Topbar from "../../components/topber/Topbar";
 import { Container, Grid } from "@mui/material";
 import PostCard from "../../components/postcard/PostCard";
@@ -22,6 +23,7 @@ export const Home = () => {
           </Grid>
         </Grid>
       </Container>
+      <Footer />
     </>
   );
 };
