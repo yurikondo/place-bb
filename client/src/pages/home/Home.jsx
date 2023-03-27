@@ -1,7 +1,7 @@
 import React from "react";
 import { Hero } from "../../components/hero/Hero";
 import { Footer } from "../../components/footer/Footer";
-import Topbar from "../../components/topber/Topbar";
+import Topbar from "../../components/topbar/Topbar";
 import { Container, Grid } from "@mui/material";
 import PostCard from "../../components/postcard/PostCard";
 
