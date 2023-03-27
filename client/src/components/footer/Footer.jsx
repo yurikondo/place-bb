@@ -6,7 +6,7 @@ export const Footer = () => {
   return (
     <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
       <Typography variant="h6" align="center" gutterBottom>
-        Footer
+        Place BB
       </Typography>
       <Typography
         variant="subtitle1"
@@ -14,7 +14,7 @@ export const Footer = () => {
         color="text.secondary"
         component="p"
       >
-        Something here to give the footer a purpose!
+        あなたのお気に入りの場所を投稿・シェアしよう📌
       </Typography>
     </Box>
   );
