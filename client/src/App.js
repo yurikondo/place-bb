@@ -1,10 +1,8 @@
-import { useState,useEffect } from 'react'
+import { Home } from './pages/home/Home';
 
 function App() {
   return (
-    <div className="App">
-      <h1>フロントエンド🚀</h1>
-    </div>
+    <Home />
   );
 }
 
