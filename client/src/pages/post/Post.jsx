@@ -1,6 +1,7 @@
 import React from "react";
 import Topbar from "../../components/topbar/Topbar";
 import { Box, Container, Grid } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 // import dotenv from 'dotenv';
 // dotenv.config();
 
@@ -15,7 +16,7 @@ export const Post = () => {
             <Box>
               <iframe
                 style={{
-                  width: "600px",
+                  width: "100%",
                   height: "450px",
                   border: "0",
                 }}
@@ -27,9 +28,12 @@ export const Post = () => {
             </Box>
             {process.env.REACT_APP_GOOGLE_MAP_API}
             API☝️
+            <LoadingButton fullWidth type="submit" loading={false} color="primary" variant="outlined">
+              場所を入力して検索
+            </LoadingButton>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Box>xs=6 md=4</Box>
+            <Box></Box>
           </Grid>
         </Grid>
       </Container>
