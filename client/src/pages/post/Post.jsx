@@ -2,6 +2,7 @@ import React from "react";
 import Topbar from "../../components/topbar/Topbar";
 import { Box, Container, Grid } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import TextField from "@mui/material/TextField";
 // import dotenv from 'dotenv';
 // dotenv.config();
 
@@ -11,7 +12,31 @@ export const Post = () => {
     <div>
       <Topbar />
       <Container maxWidth="lg">
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
+          <Grid item={6}>
+            <TextField
+              sx={{ mb: 1 }}
+              id="outlined-basic"
+              label="Outlined"
+              variant="outlined"
+              fullWidth
+            />
+          </Grid>
+          <Grid item={6}>
+            <LoadingButton
+              fullWidth
+              size="large"
+              type="submit"
+              loading={false}
+              color="primary"
+              variant="outlined"
+            >
+              場所を入力して検索
+            </LoadingButton>
+          </Grid>
+        </Grid>
+
+        <Grid container spacing={5}>
           <Grid item xs={12} sm={6}>
             <Box>
               <iframe
@@ -28,12 +53,29 @@ export const Post = () => {
             </Box>
             {process.env.REACT_APP_GOOGLE_MAP_API}
             API☝️
-            <LoadingButton fullWidth type="submit" loading={false} color="primary" variant="outlined">
-              場所を入力して検索
-            </LoadingButton>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Box></Box>
+            <Box>
+              <TextField
+                sx={{ mb: 4 }}
+                fullWidth
+                id="outlined-multiline-static"
+                label="Multiline"
+                multiline
+                rows={15}
+                defaultValue="Default Value"
+                variant="filled"
+              />
+            </Box>
+            <LoadingButton
+              fullWidth
+              type="submit"
+              loading={false}
+              color="primary"
+              variant="contained"
+            >
+              場所を入力して検索
+            </LoadingButton>
           </Grid>
         </Grid>
       </Container>
