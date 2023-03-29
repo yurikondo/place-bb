@@ -5,8 +5,21 @@ const PORT = process.env.PORT || 3001;
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
+require("dotenv").config();
+const mongoose = require("mongoose");
+
+//DB接続
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => {
+    console.log("DB接続中🚀");
+  })
+  .catch((err) => {
+    console.log(`DB接続のエラー👉${err}`);
+  });
 
 //ミドルウェア
+app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
