@@ -6,12 +6,11 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 //データベース接続
 mongoose
-  .connect(
-    "mongodb+srv://yuri:abc@cluster0.pinlvkk.mongodb.net/place-bb?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGO_URL)
   .then(() => console.log("DB接続中🚀"))
   .catch((err) => {
     console.log(`DB接続のエラー/server/index.js👉${err}`);
