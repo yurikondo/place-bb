@@ -48,7 +48,7 @@ export const Post = () => {
                 loading="lazy"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed/v1/place?key={process.env.REACT_APP_GOOGLE_MAP_API}&q=Space+Needle,Seattle+WA"
+                src={`https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_GOOGLE_MAP_API}&q=Space+Needle,Seattle+WA`}
               ></iframe>
             </Box>
             {process.env.REACT_APP_GOOGLE_MAP_API}
