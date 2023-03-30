@@ -36,6 +36,17 @@ router.delete("/:id", async (req, res) => {
 });
 
 //ユーザー情報の取得
+router.get("/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    //passwordとupdatedAtを取り除くため、分割代入で必要な値だけotherに入れる
+    const { password, updatedAt, ...other } = user._doc;
+    return res.status(200).json(other);
+  } catch (err) {
+    console.log(`ユーザー取得のエラー/users.js👉` + err);
+    return res.status(500);
+  }
+});
 
 // router.get("/", (req, res) => {
 //   res.send("User ルーター🎉");
