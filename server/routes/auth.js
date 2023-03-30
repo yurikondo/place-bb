@@ -13,8 +13,8 @@ router.post("/register", async (req, res) => {
     const user = await newUser.save();
     return res.status(200).json(user);
   } catch (err) {
-    return res.status(500);
     console.log(`ユーザー登録のエラー/auth.js👉` + err);
+    return res.status(500);
   }
 });
 
@@ -29,8 +29,8 @@ router.post("/login", async (req, res) => {
 
     return res.status(200).json(user);
   } catch (err) {
-    return res.status(500);
     console.log(`ログインのエラー/auth.js👉` + err);
+    return res.status(500);
   }
 });
 
