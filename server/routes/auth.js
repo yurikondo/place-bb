@@ -13,8 +13,7 @@ router.post("/register", async (req, res) => {
     const user = await newUser.save();
     return res.status(200).json(user);
   } catch (err) {
-    console.log(`ユーザー登録のエラー/auth.js👉` + err);
-    return res.status(500);
+    return res.status(500).json(`ユーザー登録のエラー/auth.js👉` + err);
   }
 });
 
@@ -22,15 +21,14 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    if (!user) return res.status(404).send("ユーザーが見つかりません❌");
+    if (!user) return res.status(404).json("ユーザーが見つかりません❌");
 
     const vailedPassword = req.body.password === user.password;
     if (!vailedPassword) return res.status(400).json("パスワードが違います❌");
 
     return res.status(200).json(user);
   } catch (err) {
-    console.log(`ログインのエラー/auth.js👉` + err);
-    return res.status(500);
+    return res.status(500).json(`ログインのエラー/auth.js👉` + err);
   }
 });
 
