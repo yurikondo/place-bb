@@ -21,6 +21,20 @@ router.put("/:id", async (req, res) => {
 });
 
 //ユーザー情報の削除
+router.delete("/:id", async (req, res) => {
+  if (req.body.userId === req.params.id || req.body.isAdmin) {
+    try {
+      const user = await User.findByIdAndDelete(req.params.id);
+      return res.status(200).json("ユーザー情報が削除されました🗑");
+    } catch (err) {
+      console.log(`ユーザー削除のエラー/users.js👉` + err);
+      return res.status(500);
+    }
+  } else {
+    return res.status(403).json("自分のアカウントの時だけ削除できます❌");
+  }
+});
+
 //ユーザー情報の取得
 
 // router.get("/", (req, res) => {
