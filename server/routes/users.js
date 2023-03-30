@@ -12,8 +12,7 @@ router.put("/:id", async (req, res) => {
       });
       return res.status(200).json("ユーザー情報が更新されました🎉");
     } catch (err) {
-      console.log(`ユーザー更新のエラー/users.js👉` + err);
-      return res.status(500);
+      return res.status(500).json(`ユーザー更新のエラー/users.js👉` + err);
     }
   } else {
     return res.status(403).json("自分のアカウントの時だけ更新できます❌");
@@ -27,8 +26,7 @@ router.delete("/:id", async (req, res) => {
       const user = await User.findByIdAndDelete(req.params.id);
       return res.status(200).json("ユーザー情報が削除されました🗑");
     } catch (err) {
-      console.log(`ユーザー削除のエラー/users.js👉` + err);
-      return res.status(500);
+      return res.status(500).json(`ユーザー削除のエラー/users.js👉` + err);
     }
   } else {
     return res.status(403).json("自分のアカウントの時だけ削除できます❌");
@@ -43,8 +41,44 @@ router.get("/:id", async (req, res) => {
     const { password, updatedAt, ...other } = user._doc;
     return res.status(200).json(other);
   } catch (err) {
-    console.log(`ユーザー取得のエラー/users.js👉` + err);
-    return res.status(500);
+    return res.status(500).json(`ユーザー取得のエラー/users.js👉` + err);
+  }
+});
+
+//ユーザーフォロー
+//ここでの:idはこれからフォローするuserのid
+router.put("/:id/follow", async (req, res) => {
+  if (req.body.userId !== req.params.id) {
+    try {
+      //userはこれからフォローするuser
+      const user = await User.findById(req.params.id);
+      //currentUserはログインしているuser
+      const currentUser = await User.findById(req.body.userId);
+      //フォロワーにログインしているユーザーがいなければ
+      if (!user.followers.includes(req.body.userId)) {
+        await user.updateOne({
+          //配列にpushする
+          $push: {
+            followers: req.body.userId,
+          },
+        });
+        //ログインしているユーザーのフォローしているユーザーを追加
+        await currentUser.updateOne({
+          $push: {
+            followings: req.params.id,
+          },
+        });
+        return res.status(200).json("フォローに成功しました🎉");
+      } else {
+        return res
+          .status(403)
+          .json("あなたはすでにこのユーザーをフォローしています❌");
+      }
+    } catch (err) {
+      return res.status(500).json(`ユーザーフォローのエラー👉` + err);
+    }
+  } else {
+    return res.status(500).json("自分自身をフォローできません❌");
   }
 });
 
