@@ -54,7 +54,7 @@ router.put("/:id/follow", async (req, res) => {
       const user = await User.findById(req.params.id);
       //currentUserはログインしているuser
       const currentUser = await User.findById(req.body.userId);
-      //フォロワーにログインしているユーザーがいなければ
+      //フォロワーにログインしているユーザーがいなければフォローできる
       if (!user.followers.includes(req.body.userId)) {
         await user.updateOne({
           //配列にpushする
@@ -79,6 +79,40 @@ router.put("/:id/follow", async (req, res) => {
     }
   } else {
     return res.status(500).json("自分自身をフォローできません❌");
+  }
+});
+
+//ユーザーフォロー解除
+router.put("/:id/unfollow", async (req, res) => {
+  if (req.body.userId !== req.params.id) {
+    try {
+      //userはこれからフォロー解除するuser
+      const user = await User.findById(req.params.id);
+      //currentUserはログインしているuser
+      const currentUser = await User.findById(req.body.userId);
+      //フォロワーにログインしているユーザーがいればフォロー解除できる
+      if (user.followers.includes(req.body.userId)) {
+        await user.updateOne({
+          //配列にpushする
+          $pull: {
+            followers: req.body.userId,
+          },
+        });
+        //ログインしているユーザーのフォローしているユーザーを追加
+        await currentUser.updateOne({
+          $pull: {
+            followings: req.params.id,
+          },
+        });
+        return res.status(200).json("フォロー解除に成功しました🎉");
+      } else {
+        return res.status(403).json("このユーザーをフォロー解除できません❌");
+      }
+    } catch (err) {
+      return res.status(500).json(`ユーザーフォローのエラー👉` + err);
+    }
+  } else {
+    return res.status(500).json("自分自身をフォロー解除できません❌");
   }
 });
 
