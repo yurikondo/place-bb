@@ -34,7 +34,7 @@ export const Login = () => {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Sign in
+        会員登録
       </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
         <TextField
@@ -42,7 +42,7 @@ export const Login = () => {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label="メールアドレス"
           name="email"
           autoComplete="email"
           autoFocus
@@ -52,32 +52,33 @@ export const Login = () => {
           required
           fullWidth
           name="password"
-          label="Password"
+          label="パスワード"
           type="password"
           id="password"
           autoComplete="current-password"
+          minLength="6"
         />
-        <FormControlLabel
+        {/* <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
-        />
+        /> */}
         <Button
           type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign In
+          ログイン
         </Button>
         <Grid container>
           <Grid item xs>
             <Link href="#" variant="body2">
-              Forgot password?
+              パスワードをお忘れですか？
             </Link>
           </Grid>
           <Grid item>
             <Link href="#" variant="body2">
-              {"Don't have an account? Sign Up"}
+              {"アカウントをお持ちですか？ログイン"}
             </Link>
           </Grid>
         </Grid>
