@@ -40,6 +40,7 @@ export const Post = () => {
           <Grid item xs={12} sm={6}>
             <Box>
               <iframe
+                title="map"
                 style={{
                   width: "100%",
                   height: "450px",
