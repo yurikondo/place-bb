@@ -11,13 +11,16 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 
 export const Login = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const handleSubmit = (e) => {
+    //リロードを防ぐ
+    e.preventDefault();
+
+    //フォームのデータを取得
+    //useStateやuseRefでも取得可能だが、今回はFormDataを使用
+    const data = new FormData(e.currentTarget);
+    //name属性の値を取得
+    const email = data.get("email").trim();
+    const password = data.get("password").trim();
   };
 
   return (
