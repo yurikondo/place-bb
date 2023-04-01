@@ -37,7 +37,7 @@ function Topbar() {
   };
 
   return (
-    <AppBar position="static" sx={{mb: 10}}>
+    <AppBar position="static" sx={{ mb: 10 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -127,11 +127,20 @@ function Topbar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            {/* <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip> */}
             <Tooltip title="Open settings">
-              {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}> */}
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
-                <Button variant="contained" component={Link} to="/post">投稿する</Button>
-              {/* </IconButton> */}
+              <Button variant="contained" component={Link} to="/auth/register">
+                会員登録
+              </Button>
+            </Tooltip>
+            <Tooltip title="Open settings">
+              <Button variant="contained" component={Link} to="/post">
+                投稿する
+              </Button>
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}
