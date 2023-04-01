@@ -44,6 +44,43 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+//特定の投稿を取得する
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    return res.status(200).json(post);
+  } catch (err) {
+    return res.status(403).json(`投稿取得のエラー👉` + err);
+  }
+});
+
+//特定の投稿にいいねを押す
+router.put("/:id/like", async (req, res) => {
+  try {
+    //postはこれからいいねするpost
+    const post = await Post.findById(req.params.id);
+    //その投稿にまだログインしているユーザーがいいねしていなかったらいいねできる
+    if (!post.likes.includes(req.body.userId)) {
+      await post.updateOne({
+        //配列にpushする
+        $push: {
+          likes: req.body.userId,
+        },
+      });
+      return res.status(200).json("投稿にいいねしました🎉");
+    } else {
+      //投稿にすでにいいねが押されていたらログインしているユーザーIDを取り除く
+      await post.updateOne({
+        $pull: {
+          likes: req.body.userId,
+        },
+      });
+      return res.status(403).json("投稿にいいねを外しました🎉");
+    }
+  } catch (err) {
+    return res.status(500).json(`投稿にいいねする処理のエラー👉` + err);
+  }
+});
 
 // router.get("/", (req, res) => {
 //   res.send("Post ルーター🎉");
