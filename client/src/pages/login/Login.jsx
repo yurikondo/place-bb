@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -7,18 +7,26 @@ import Typography from "@mui/material/Typography";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
+import { loginCall } from "../../actionCalls";
+import { AuthContext } from "../../state/AuthContext";
 
 export const Login = () => {
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+
   const handleSubmit = (e) => {
-    //リロードを防ぐ
     e.preventDefault();
 
-    //フォームのデータを取得
-    //useStateやuseRefでも取得可能だが、今回はFormDataを使用
     const data = new FormData(e.currentTarget);
-    //name属性の値を取得
     const email = data.get("email").trim();
     const password = data.get("password").trim();
+
+    loginCall(
+      {
+        email: email,
+        password: password,
+      },
+      dispatch
+    );
   };
 
   return (
@@ -59,10 +67,6 @@ export const Login = () => {
           autoComplete="current-password"
           minLength="6"
         />
-        {/* <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        /> */}
         <Button
           type="submit"
           fullWidth
