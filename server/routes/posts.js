@@ -82,6 +82,16 @@ router.put("/:id/like", async (req, res) => {
   }
 });
 
+//タイムラインの投稿を取得
+router.get("/timeline/all", async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ _id: -1 }).limit(9);
+    return res.status(200).json(posts);
+  } catch (err) {
+    return res.status(500).json(`タイムライン取得のエラー👉` + err);
+  }
+});
+
 // router.get("/", (req, res) => {
 //   res.send("Post ルーター🎉");
 // });
